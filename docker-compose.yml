@@ -14,16 +14,19 @@ services:
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
     volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
+      - ./mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
       - db-data:/var/lib/mysql
       
   maven:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: maven:3.5-jdk-8
     ports:
       - 8181:8088
     restart: always
+    working_dir: /
+    volumes:
+      - ./:/app
+      - ~/.m2:/root/.m2
+    command: mvn clean spring-boot:run
     networks:
       - employee-mysql
     depends_on:

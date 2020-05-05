@@ -30,7 +30,7 @@ public class AccountController {
     @RequestMapping("/getStatusAccountUsing")
     public ResponseEntity<List<StaffEntity>> index(@RequestParam(value = "id", defaultValue="0") String id) {
         
-        if(id.equals("1")) {
+        if(id.equals("0")) {
             throw new NullException();
         }
         
